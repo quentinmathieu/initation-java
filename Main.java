@@ -1,23 +1,80 @@
+
 import java.util.Arrays;
+import java.util.Scanner;
 
 class Main {
+    public static String sep = "========================================="; 
     
     public static void main(String[] args) {
+        
+        // init reader for user prompt
+        Scanner reader = new Scanner(System.in);
+
         // if else
         String nameHello = "azerty";
         ifElseFun(nameHello);
 
         // modulo 
         int fizzBuzzNum = 15;
-        FizzBuzz(fizzBuzzNum);
+        fizzBuzz(fizzBuzzNum);
         
-        // arrays
-        int[] arr = {1,9,2,3,4};
-        sum2index(arr, 1, 3);
+        // /// arrays ///////////////////
+        // int[] arr = {1,9,2,3,4};
+        
 
+        // // ask user to enter 2 number
+        // System.out.println("Enter a number: ");
+        // int k =  reader.nextInt();
+        // System.out.println("Enter a number: ");
+        // int j =  reader.nextInt();
+
+        // sum2index(arr, k, j);
+        // //////////////////////////////
+        
+        
+        String[] arrNames = {"Ada", "Charles", "Aaron", "Margaret", "Linus", "Grace"};
+        
+        displayArrayToMultipleTuples(arrNames);
+
+
+
+        // close de prompt's reader
+        reader.close();
+    }
+
+    // est-ce que le type retourné est-il bon ?
+    public static String[][] displayArrayToMultipleTuples (String[] arrNames){
+        // only works for group of 2
+        int groupSize = 2;
+        
+        // init the returned array with the right people number
+        int lengthNewArray = (arrNames.length + groupSize - 1) / groupSize;
+        String[][] newArray = new String [lengthNewArray][];
+        System.out.println(Main.sep);
+        for (int i = 0; i < arrNames.length; i+=groupSize){
+
+            /////// pour cell array utiliser une liste ?
+
+            if ((i+1) == arrNames.length){
+                String[] cellArray = {arrNames[i]};
+                newArray[(i + groupSize - 1) / groupSize] = cellArray;
+                System.out.println(Arrays.toString(cellArray));
+            }
+            
+            else{
+                String[] cellArray = {arrNames[i], arrNames[i+1]};
+                newArray[(i + groupSize - 1) / groupSize] = cellArray;
+                System.out.println(Arrays.toString(cellArray));
+            }            
+            // String[] cellArray = ((i+1) == arrNames.length)
+            // ?  {arrNames[i]}
+            // :  {arrNames[i], arrNames[i+1]};
+        }
+        return newArray;
     }
 
     public static void ifElseFun(String nameHello){
+        System.out.println(Main.sep);
         if (nameHello.length() >5) {
             System.out.println("Hello "+ nameHello + " long");
             
@@ -37,7 +94,8 @@ class Main {
         }
     }
 
-    public static void FizzBuzz(int fizzBuzzNum){
+    public static void fizzBuzz(int fizzBuzzNum){
+        System.out.println(Main.sep);
         if (fizzBuzzNum%3 == 0 || fizzBuzzNum%5 == 0) {
             if (fizzBuzzNum%3 == 0){
                 System.out.println("Fizz ");
@@ -55,11 +113,15 @@ class Main {
 
 
     // index déjà existant ? // push array
-    public static void sum2index(int[] arr, int k, int j){
-        int[] stepArray = new int[j-k+1]; 
+    public static void sum2index(int[] arr, int i, int j){
+        System.out.println(Main.sep);
+
+        // init a new array for the steps with the right cells amount
+        int[] stepArray = new int[j-i+1]; 
+
         int sum = 0;
         int index = 0;
-        for (int i = k;i <= j; i++){
+        for (;i <= j; i++){
             sum += arr[i];
             stepArray[index] = sum;
             index++;
@@ -68,4 +130,6 @@ class Main {
         System.out.println("Sum of values form the array "+sum);
         System.out.println("Step array :"+Arrays.toString(stepArray));
     }
+
+      
 }
