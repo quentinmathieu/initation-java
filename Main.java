@@ -1,5 +1,5 @@
-
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 class Main {
@@ -33,7 +33,7 @@ class Main {
         
         
         String[] arrNames = {"Ada", "Charles", "Aaron", "Margaret", "Linus", "Grace"};
-        
+        shuffleArray(arrNames);
         displayArrayToMultipleTuples(arrNames);
 
 
@@ -44,7 +44,7 @@ class Main {
 
     // est-ce que le type retourné est-il bon ?
     public static String[][] displayArrayToMultipleTuples (String[] arrNames){
-        // only works for group of 2
+        // only works for group of 2 ATM
         int groupSize = 2;
         
         // init the returned array with the right people number
@@ -53,7 +53,9 @@ class Main {
         System.out.println(Main.sep);
         for (int i = 0; i < arrNames.length; i+=groupSize){
 
-            /////// pour cell array utiliser une liste ?
+            /////////////////////////////////////////////////////////////////////////////////
+            /////// pour le nouveau tableau utiliser une liste plutôt qu'un tableau ?////////
+            /////////////////////////////////////////////////////////////////////////////////
 
             if ((i+1) == arrNames.length){
                 String[] cellArray = {arrNames[i]};
@@ -65,7 +67,14 @@ class Main {
                 String[] cellArray = {arrNames[i], arrNames[i+1]};
                 newArray[(i + groupSize - 1) / groupSize] = cellArray;
                 System.out.println(Arrays.toString(cellArray));
-            }            
+            }
+
+            
+
+            ////////////////////////////////////////////////////
+            /////// Comment faire fonction ce ternaire ?////////
+            ////////////////////////////////////////////////////
+
             // String[] cellArray = ((i+1) == arrNames.length)
             // ?  {arrNames[i]}
             // :  {arrNames[i], arrNames[i+1]};
@@ -129,6 +138,19 @@ class Main {
         
         System.out.println("Sum of values form the array "+sum);
         System.out.println("Step array :"+Arrays.toString(stepArray));
+    }
+
+    static void shuffleArray(String[] ar)
+    {
+        Random rnd = new Random();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+        int index = rnd.nextInt(i + 1);
+        // Simple swap
+        String a = ar[index];
+        ar[index] = ar[i];
+        ar[i] = a;
+        }
     }
 
       
