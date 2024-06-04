@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Vector;
 
 class Main {
     public static String sep = "========================================="; 
@@ -32,9 +33,10 @@ class Main {
         // //////////////////////////////
         
         
-        String[] arrNames = {"Ada", "Charles", "Aaron", "Margaret", "Linus", "Grace"};
+        String[] arrNames = {"Ada", "Charles", "Aaron", "Margaret", "Linus","Ada", "Charles", "Ada", "Charles", "Ada", "Charles", };
         shuffleArray(arrNames);
         displayArrayToMultipleTuples(arrNames);
+        displayArrayToMultipleTuplesVector(arrNames, 5);
 
 
 
@@ -44,42 +46,51 @@ class Main {
 
     // est-ce que le type retourné est-il bon ?
     public static String[][] displayArrayToMultipleTuples (String[] arrNames){
-        // only works for group of 2 ATM
+        // only works for group of 2
         int groupSize = 2;
-        
         // init the returned array with the right people number
         int lengthNewArray = (arrNames.length + groupSize - 1) / groupSize;
         String[][] newArray = new String [lengthNewArray][];
         System.out.println(Main.sep);
-        for (int i = 0; i < arrNames.length; i+=groupSize){
+        for (int i = 0; i < arrNames.length; i+=groupSize){        
 
-            /////////////////////////////////////////////////////////////////////////////////
-            /////// pour le nouveau tableau utiliser une liste plutôt qu'un tableau ?////////
-            /////////////////////////////////////////////////////////////////////////////////
 
-            if ((i+1) == arrNames.length){
-                String[] cellArray = {arrNames[i]};
-                newArray[(i + groupSize - 1) / groupSize] = cellArray;
+            //  for ternaries : have to type the value of the var
+            String[] cellArray = (i+1) == arrNames.length
+            ?  new String[]{arrNames[i]}
+            :  new String[]{arrNames[i], arrNames[i+1]};
+            newArray[(i + groupSize - 1) / groupSize] = cellArray;
                 System.out.println(Arrays.toString(cellArray));
-            }
-            
-            else{
-                String[] cellArray = {arrNames[i], arrNames[i+1]};
-                newArray[(i + groupSize - 1) / groupSize] = cellArray;
-                System.out.println(Arrays.toString(cellArray));
-            }
-
-            
-
-            ////////////////////////////////////////////////////
-            /////// Comment faire fonction ce ternaire ?////////
-            ////////////////////////////////////////////////////
-
-            // String[] cellArray = ((i+1) == arrNames.length)
-            // ?  {arrNames[i]}
-            // :  {arrNames[i], arrNames[i+1]};
         }
         return newArray;
+    }
+
+    // est-ce que le type retourné est-il bon ?
+    public static Vector displayArrayToMultipleTuplesVector (String[] arrNames, int groupSize){       
+        // init the returned array with the right people number
+        Vector tupleVector = new Vector();
+        System.out.println(Main.sep);
+        
+        for (int i = 0; i < arrNames.length; i+=groupSize){
+            // int arraySize = (i < arrNames.length) ? groupSize : arrNames.length - i;
+            if (arrNames.length - i > groupSize){
+                String[] cellArray = new String[groupSize];
+                for(int j = 0; j < groupSize; j++){
+                    cellArray[j] = arrNames[i+j];
+                }
+                tupleVector.add(cellArray);
+                System.out.println(Arrays.toString(cellArray));
+            }
+            else{
+                String[] cellArray = new String[arrNames.length - i];
+                for(int j = 0; j < arrNames.length - i; j++){
+                    cellArray[j] = arrNames[i+j];
+                }
+                tupleVector.add(cellArray);
+                System.out.println(Arrays.toString(cellArray));
+            }
+        }
+        return tupleVector;
     }
 
     public static void ifElseFun(String nameHello){
