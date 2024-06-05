@@ -33,10 +33,10 @@ class Main {
         // //////////////////////////////
         
         
-        String[] arrNames = {"Ada", "Charles", "Aaron", "Margaret", "Linus","Ada", "Charles", "Ada", "Charles", "Ada", "Charles", };
+        String[] arrNames = {"Ada", "Charles", "Aaron", "Margaret", "Linus", "Ludo"};
         shuffleArray(arrNames);
         displayArrayToMultipleTuples(arrNames);
-        displayArrayToMultipleTuplesVector(arrNames, 5);
+        displayArrayToMultipleTuplesVector(arrNames, 2);
 
 
 
@@ -44,7 +44,7 @@ class Main {
         reader.close();
     }
 
-    // est-ce que le type retourné est-il bon ?
+    // divide the array by an array of array of size 2 => String[][] 
     public static String[][] displayArrayToMultipleTuples (String[] arrNames){
         // only works for group of 2
         int groupSize = 2;
@@ -65,30 +65,27 @@ class Main {
         return newArray;
     }
 
-    // est-ce que le type retourné est-il bon ?
+    // divide the array by an vector of array of size groupSize
     public static Vector displayArrayToMultipleTuplesVector (String[] arrNames, int groupSize){       
         // init the returned array with the right people number
         Vector tupleVector = new Vector();
         System.out.println(Main.sep);
         
+        //  loop on the array with a step of the group size
         for (int i = 0; i < arrNames.length; i+=groupSize){
-            // int arraySize = (i < arrNames.length) ? groupSize : arrNames.length - i;
-            if (arrNames.length - i > groupSize){
-                String[] cellArray = new String[groupSize];
-                for(int j = 0; j < groupSize; j++){
-                    cellArray[j] = arrNames[i+j];
-                }
-                tupleVector.add(cellArray);
-                System.out.println(Arrays.toString(cellArray));
+
+            // Guess the size of a tuple<array> (=groupSize except for the last tuple if:
+            // arrNames.lenght%groupSize !=0)
+            int arraySize = (arrNames.length - i > groupSize) ? groupSize : arrNames.length - i;
+            String[] cellArray = new String[arraySize];
+
+            for(int j = 0; j < arraySize; j++){
+                // fill a tuple<array>
+                cellArray[j] = arrNames[i+j];
             }
-            else{
-                String[] cellArray = new String[arrNames.length - i];
-                for(int j = 0; j < arrNames.length - i; j++){
-                    cellArray[j] = arrNames[i+j];
-                }
-                tupleVector.add(cellArray);
-                System.out.println(Arrays.toString(cellArray));
-            }
+            // add a tuple<array> to the vector
+            tupleVector.add(cellArray);
+            System.out.println(Arrays.toString(cellArray));
         }
         return tupleVector;
     }
